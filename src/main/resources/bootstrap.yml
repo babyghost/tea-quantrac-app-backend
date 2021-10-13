@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: tea-lienchieu-app-backend
+server:
+  port: 8081
