@@ -11,7 +11,9 @@ import vn.tea.app.ungdung.entity.QuanTracDanhMuc;
 public interface QuanTracDanhMucService {
 
 	public Optional<QuanTracDanhMuc> findById(Long id);
-
+	
+	public QuanTracDanhMuc findByMa(String ma);
+	
 	public QuanTracDanhMuc save(QuanTracDanhMuc coreUser);
 
 	public void delete(Long id);

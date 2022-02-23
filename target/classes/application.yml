@@ -8,7 +8,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/tea_web_quantrac?useSSL=false&useUnicode=yes&characterEncoding=UTF-8
     username: root
-    password: 
+    password: linh@pro
     #password: TeamWork@123
     #url: jdbc:mysql://localhost:3306/tea-app?useSSL=false&useUnicode=yes&characterEncoding=UTF-8
     #username: root

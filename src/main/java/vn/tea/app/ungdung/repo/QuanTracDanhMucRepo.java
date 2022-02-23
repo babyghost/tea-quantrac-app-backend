@@ -21,6 +21,7 @@ public interface QuanTracDanhMucRepo extends JpaRepository<QuanTracDanhMuc, Long
 	public int setFixedDaXoaById(Long id);
 	
 	public List<QuanTracDanhMuc> findByTenAndDaXoa(String ten, Integer daXoa);
+	
 	public QuanTracDanhMuc findByMaAndDaXoa(String ma, Integer daXoa);
 
 }

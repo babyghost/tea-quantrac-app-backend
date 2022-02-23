@@ -41,4 +41,10 @@ public class QuanTracDanhMucImpl implements QuanTracDanhMucService {
 		return repo.findByTenAndDaXoa(ten, daXoa);
 	}
 
+	@Override
+	public QuanTracDanhMuc findByMa(String ma) {
+		// TODO Auto-generated method stub
+		return repo.findByMaAndDaXoa(ma, 0);
+	}
+
 }
