@@ -45,4 +45,11 @@ public class QuanTracPhanTichMoiTruongImpl implements QuanTracPhanTichMoiTruongS
 	public Page<QuanTracPhanTichMoiTruong> findAll(String ten, Long donViHanhChinhId, LocalDate ngayTaoTuNgay, LocalDate ngayTaoDenNgay, Pageable pageable) {
 		return repo.findAll(QuanTracPhanTichMoiTruongSpecifications.quickSearch(ten, donViHanhChinhId, ngayTaoTuNgay, ngayTaoDenNgay), pageable);
 	}
+
+	@Override
+	public Optional<QuanTracPhanTichMoiTruong> findFirstByThangAndNamAndLoaiAndDaXoa(Integer thang, Integer nam, String loai,
+			Integer daXoa) {
+		// TODO Auto-generated method stub
+		return repo.findFirstByThangAndNamAndLoaiAndDaXoa( thang, nam, loai, daXoa);
+	}
 }

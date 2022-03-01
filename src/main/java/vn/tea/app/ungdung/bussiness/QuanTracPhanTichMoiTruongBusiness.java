@@ -6,8 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.time.LocalDate;
-import java.time.OffsetTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -16,6 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -24,9 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
@@ -62,6 +58,8 @@ public class QuanTracPhanTichMoiTruongBusiness {
 	private QuanTracDanhMucService serviceQuanTracDanhMucService;
 	@Autowired
 	private QuanTracHeSoTrungBinhService serviceQuanTracHeSoTrungBinhService;
+	@Autowired
+	private QuanTracPhanTichMoiTruongService quanTracPhanTichMoiTruongService;
 
 	public Page<QuanTracPhanTichMoiTruong> findAll(String ten, Long donViHanhChinhId, LocalDate ngayTaoTuNgay,
 			LocalDate ngayTaoDenNgay, int page, int size, String sortBy, String sortDir) {
@@ -384,6 +382,8 @@ public class QuanTracPhanTichMoiTruongBusiness {
 				viTri.setLat(item.getLat());
 				viTri.setLng(item.getLng());
 				viTri.setNgayLayMau(item.getNgayLayMau());
+				viTri.setThangLayMau(item.getNgayLayMau().getMonthValue());
+				viTri.setNamLayMau(item.getNgayLayMau().getYear());
 				viTri.setPhanTichId(result.getId());
 				viTri.setTacDongId(item.getTacDongId());
 				serviceQuanTracViTriLayMauService.save(viTri);
@@ -424,6 +424,8 @@ public class QuanTracPhanTichMoiTruongBusiness {
 					viTri.setLat(item.getLat());
 					viTri.setLng(item.getLng());
 					viTri.setNgayLayMau(item.getNgayLayMau());
+					viTri.setThangLayMau(item.getNgayLayMau().getMonthValue());
+					viTri.setNamLayMau(item.getNgayLayMau().getYear());
 					viTri.setPhanTichId(result.getId());
 					viTri.setTacDongId(item.getTacDongId());
 					serviceQuanTracViTriLayMauService.save(viTri);
@@ -473,6 +475,8 @@ public class QuanTracPhanTichMoiTruongBusiness {
 				viTri.setLat(item.getLat());
 				viTri.setLng(item.getLng());
 				viTri.setNgayLayMau(item.getNgayLayMau());
+				viTri.setThangLayMau(item.getNgayLayMau().getMonthValue());
+				viTri.setNamLayMau(item.getNgayLayMau().getYear());
 				viTri.setPhanTichId(result.getId());
 				viTri.setTacDongId(item.getTacDongId());
 				serviceQuanTracViTriLayMauService.save(viTri);
@@ -531,65 +535,56 @@ public class QuanTracPhanTichMoiTruongBusiness {
 				if (!"".equals(matacdong)) {
 					sum_matacdong = matacdong;
 				}
-			//	log.info(" sum_matacdong {}", sum_matacdong);
-
 				Cell cell_buiTSP = currentRow.getCell(3);
 				Double chiso_buiTSP = cell_buiTSP.getNumericCellValue();
-				if (chiso_buiTSP != null) {
-
-				}
-			//	log.info(" chiso_buiTSP {}", chiso_buiTSP);
 
 				Cell cell_buiPM10 = currentRow.getCell(4);
 				Double chiso_buiPM10 = cell_buiPM10.getNumericCellValue();
-				if (chiso_buiPM10 != null) {
-
-				}
-			//	log.info(" chiso_buiPM10 {}", chiso_buiPM10);
 
 				Cell cell_O3 = currentRow.getCell(5);
 				Double chiso_O3 = cell_O3.getNumericCellValue();
-				if (chiso_O3 != null) {
-
-				}
-			//	log.info(" chiso_O3 {}", chiso_O3);
 
 				Cell cell_NO2 = currentRow.getCell(6);
 				Double chiso_NO2 = cell_NO2.getNumericCellValue();
-				if (chiso_NO2 != null) {
-
-				}
-			//	log.info(" chiso_NO2 {}", chiso_NO2);
 
 				Cell cell_SO2 = currentRow.getCell(7);
 				Double chiso_SO2 = cell_SO2.getNumericCellValue();
-				if (chiso_SO2 != null) {
-
-				}
-			//	log.info(" chiso_SO2 {}", chiso_SO2);
 				if(dem <= 12) {
 					if(!"".equals(sum_matacdong)) {
 						QuanTracDanhMuc tacDong = serviceQuanTracDanhMucService.findByMa(sum_matacdong);
 						QuanTracDanhMuc viTriQuanTrac = serviceQuanTracDanhMucService.findByMa(sum_mavitri); 
+						Optional<QuanTracPhanTichMoiTruong> optQuanTracPhanTich = quanTracPhanTichMoiTruongService.findFirstByThangAndNamAndLoaiAndDaXoa(dem, year, "AQI", 0);
 						QuanTracViTriLayMau quanTracAQI = new QuanTracViTriLayMau();
-						if(tacDong != null) {
-							quanTracAQI.setTacDongId(tacDong.getId());
-						}
+						
 						if(viTriQuanTrac != null) {
-							quanTracAQI.setViTriLayMau(viTriQuanTrac.getTen());
-							quanTracAQI.setViTriQuanTracId(viTriQuanTrac.getId());
-							quanTracAQI.setDonViHanhChinhId(viTriQuanTrac.getChaId());
-							quanTracAQI.setLat(viTriQuanTrac.getLat());
-							quanTracAQI.setLng(viTriQuanTrac.getLng());
+							QuanTracViTriLayMau checkExistItem = serviceQuanTracViTriLayMauService.findFirstByViTriQuanTracIdAndThangLayMauAndNamLayMau(viTriQuanTrac.getId(), dem, year);
+							if(ObjectUtils.isEmpty(checkExistItem)) {
+								quanTracAQI.setViTriLayMau(viTriQuanTrac.getTen());
+								quanTracAQI.setViTriQuanTracId(viTriQuanTrac.getId());
+								quanTracAQI.setDonViHanhChinhId(viTriQuanTrac.getChaId());
+								quanTracAQI.setLat(viTriQuanTrac.getLat());
+								quanTracAQI.setLng(viTriQuanTrac.getLng());
+								
+								if(tacDong != null) {
+									quanTracAQI.setTacDongId(tacDong.getId());
+								}
+								
+								quanTracAQI.setChiTieuTsp(chiso_buiTSP);
+								quanTracAQI.setChiTieuPm10(chiso_buiPM10);
+								quanTracAQI.setChiTieuO3(chiso_O3);
+								quanTracAQI.setChiTieuNo2(chiso_NO2);
+								quanTracAQI.setChiTieuSo2(chiso_SO2);
+								LocalDate ngayLayMau = LocalDate.of(year, dem, 15);
+								quanTracAQI.setNgayLayMau(ngayLayMau);
+								quanTracAQI.setThangLayMau(ngayLayMau.getMonthValue());
+								quanTracAQI.setNamLayMau(ngayLayMau.getYear());
+								if(optQuanTracPhanTich.isPresent()) {
+									quanTracAQI.setPhanTichId(optQuanTracPhanTich.get().getId());
+								}
+								serviceQuanTracViTriLayMauService.save(quanTracAQI);
+							}
 						}
-						quanTracAQI.setChiTieuTsp(chiso_buiTSP);
-						quanTracAQI.setChiTieuPm10(chiso_buiPM10);
-						quanTracAQI.setChiTieuO3(chiso_O3);
-						quanTracAQI.setChiTieuNo2(chiso_NO2);
-						quanTracAQI.setChiTieuSo2(chiso_SO2);
-						LocalDate ngayLayMau = LocalDate.of(year, dem, 15);
-						quanTracAQI.setNgayLayMau(ngayLayMau);
-						serviceQuanTracViTriLayMauService.save(quanTracAQI);
+						
 					}
 				}
 

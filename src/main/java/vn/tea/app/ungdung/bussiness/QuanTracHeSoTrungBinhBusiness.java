@@ -22,9 +22,9 @@ import vn.tea.app.ungdung.validator.QuanTracHeSoTrungBinhValidator;
 public class QuanTracHeSoTrungBinhBusiness {
 
 	@Autowired
-	private QuanTracHeSoTrungBinhService coreChucNangService;
+	private QuanTracHeSoTrungBinhService quanTracHeSoTrungBinhService;
 	@Autowired
-	private QuanTracHeSoTrungBinhValidator coreChucNangValidator;
+	private QuanTracHeSoTrungBinhValidator quanTracHeSoTrungBinhValidator;
 
 	public Page<QuanTracHeSoTrungBinh> findAll(String ten, int page, int size, String sortBy, String sortDir) {
 
@@ -34,12 +34,12 @@ public class QuanTracHeSoTrungBinhBusiness {
 		} else {
 			direction = Direction.DESC;
 		}
-		Page<QuanTracHeSoTrungBinh> pageQuanTracHeSoTrungBinh = coreChucNangService.findAll(ten, PageRequest.of(page, size, direction, sortBy));
+		Page<QuanTracHeSoTrungBinh> pageQuanTracHeSoTrungBinh = quanTracHeSoTrungBinhService.findAll(ten, PageRequest.of(page, size, direction, sortBy));
 		return pageQuanTracHeSoTrungBinh;
 	}
 
 	public QuanTracHeSoTrungBinh findById(Long id) throws EntityNotFoundException {
-		Optional<QuanTracHeSoTrungBinh> optional = coreChucNangService.findById(id);
+		Optional<QuanTracHeSoTrungBinh> optional = quanTracHeSoTrungBinhService.findById(id);
 		if (!optional.isPresent()) {
 			throw new EntityNotFoundException(QuanTracHeSoTrungBinh.class, "id", String.valueOf(id));
 		}
@@ -47,52 +47,52 @@ public class QuanTracHeSoTrungBinhBusiness {
 		return coreChucNang;
 	}
 
-	public QuanTracHeSoTrungBinh create(QuanTracHeSoTrungBinhData coreChucNangData, BindingResult result)
+	public QuanTracHeSoTrungBinh create(QuanTracHeSoTrungBinhData data, BindingResult result)
 			throws MethodArgumentNotValidException {
-		coreChucNangValidator.validate(coreChucNangData, result);
+		quanTracHeSoTrungBinhValidator.validate(data, result);
 		if (result.hasErrors()) {
 			throw new MethodArgumentNotValidException(null, result);
 		}
 		QuanTracHeSoTrungBinh coreChucNang = new QuanTracHeSoTrungBinh();
 
 		coreChucNang.setDaXoa(0);
-		coreChucNang.setTen(coreChucNangData.getTen());
-		coreChucNang.setChiTieuNo2(coreChucNangData.getChiTieuNo2());
-		coreChucNang.setChiTieuO3(coreChucNangData.getChiTieuO3());
-		coreChucNang.setChiTieuPm10(coreChucNangData.getChiTieuPm10());
-		coreChucNang.setChiTieuSo2(coreChucNangData.getChiTieuSo2());
-		coreChucNang.setChiTieuTsp(coreChucNangData.getChiTieuTsp());
-		coreChucNang = coreChucNangService.save(coreChucNang);
+		coreChucNang.setTen(data.getTen());
+		coreChucNang.setChiTieuNo2(data.getChiTieuNo2());
+		coreChucNang.setChiTieuO3(data.getChiTieuO3());
+		coreChucNang.setChiTieuPm10(data.getChiTieuPm10());
+		coreChucNang.setChiTieuSo2(data.getChiTieuSo2());
+		coreChucNang.setChiTieuTsp(data.getChiTieuTsp());
+		coreChucNang = quanTracHeSoTrungBinhService.save(coreChucNang);
 		return coreChucNang;
 	}
 
-	public QuanTracHeSoTrungBinh update(Long id, QuanTracHeSoTrungBinhData coreChucNangData, BindingResult result)
+	public QuanTracHeSoTrungBinh update(Long id, QuanTracHeSoTrungBinhData data, BindingResult result)
 			throws EntityNotFoundException, MethodArgumentNotValidException {
-		coreChucNangValidator.validate(coreChucNangData, result);
+		quanTracHeSoTrungBinhValidator.validate(data, result);
 		if (result.hasErrors()) {
 			throw new MethodArgumentNotValidException(null, result);
 		}
-		Optional<QuanTracHeSoTrungBinh> optional = coreChucNangService.findById(id);
+		Optional<QuanTracHeSoTrungBinh> optional = quanTracHeSoTrungBinhService.findById(id);
 		if (!optional.isPresent()) {
 			throw new EntityNotFoundException(QuanTracHeSoTrungBinh.class, "id", String.valueOf(id));
 		}
 		QuanTracHeSoTrungBinh coreChucNang = optional.get();
 
 		coreChucNang.setDaXoa(0);
-		coreChucNang.setTen(coreChucNangData.getTen());
-		coreChucNang.setChiTieuNo2(coreChucNangData.getChiTieuNo2());
-		coreChucNang.setChiTieuO3(coreChucNangData.getChiTieuO3());
-		coreChucNang.setChiTieuPm10(coreChucNangData.getChiTieuPm10());
-		coreChucNang.setChiTieuSo2(coreChucNangData.getChiTieuSo2());
-		coreChucNang.setChiTieuTsp(coreChucNangData.getChiTieuTsp());
-		coreChucNang = coreChucNangService.save(coreChucNang);
+		coreChucNang.setTen(data.getTen());
+		coreChucNang.setChiTieuNo2(data.getChiTieuNo2());
+		coreChucNang.setChiTieuO3(data.getChiTieuO3());
+		coreChucNang.setChiTieuPm10(data.getChiTieuPm10());
+		coreChucNang.setChiTieuSo2(data.getChiTieuSo2());
+		coreChucNang.setChiTieuTsp(data.getChiTieuTsp());
+		coreChucNang = quanTracHeSoTrungBinhService.save(coreChucNang);
 
 		return coreChucNang;
 	}
 
 	public int delete(Long id) throws EntityNotFoundException {
 			try {
-				coreChucNangService.delete(id);
+				quanTracHeSoTrungBinhService.delete(id);
 				return 1;
 			} catch (Exception e) {
 				// TODO: handle exception

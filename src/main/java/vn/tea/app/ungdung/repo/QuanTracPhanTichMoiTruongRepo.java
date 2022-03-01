@@ -26,6 +26,8 @@ public interface QuanTracPhanTichMoiTruongRepo extends JpaRepository<QuanTracPha
 	public Optional<QuanTracPhanTichMoiTruong> findByIdAndTrangThaiAndDaXoa(Long id, Integer trangThai, Integer daXoa);
 	public Optional<QuanTracPhanTichMoiTruong> findFirstByDaXoaOrderByIdDesc(Integer daXoa);
 	
+	public Optional<QuanTracPhanTichMoiTruong> findFirstByThangAndNamAndLoaiAndDaXoa(Integer thang, Integer nam, String loai, Integer daXoa);
+	
 	public List<QuanTracPhanTichMoiTruong> findByNgayTaoAndDaXoa(LocalDate ngayTao, Integer daXoa);
 
 }

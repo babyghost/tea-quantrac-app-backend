@@ -1,12 +1,9 @@
 package vn.tea.app.ungdung.controller;
 
 import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,15 +11,11 @@ import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,8 +50,6 @@ import vn.tea.app.ungdung.dao.DuLieuMoiTruongTheoDanhMucData;
 import vn.tea.app.ungdung.dao.QuanTracPhanTichMoiTruongData;
 import vn.tea.app.ungdung.entity.QuanTracDanhMuc;
 import vn.tea.app.ungdung.entity.QuanTracPhanTichMoiTruong;
-import vn.tea.app.ungdung.entity.QuanTracViTriLayMau;
-import vn.tea.app.utils.ApachePoiUtils;
 import vn.tea.app.utils.CoreUtil;
 
 @Slf4j

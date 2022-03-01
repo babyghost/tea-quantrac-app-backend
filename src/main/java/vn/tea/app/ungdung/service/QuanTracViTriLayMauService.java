@@ -22,4 +22,6 @@ public interface QuanTracViTriLayMauService {
 	public List<QuanTracViTriLayMau> findByPhanTichIdAndDaXoa(Long phanTichId, Integer daXoa);
 	public List<QuanTracViTriLayMau> search(Long phanTichId, List<Long> viTriLayMauId);
 	public List<QuanTracViTriLayMau> searcViTriByPhanTich(Long phanTichId, String ten);
+	
+	public QuanTracViTriLayMau findFirstByViTriQuanTracIdAndThangLayMauAndNamLayMau(Long viTriQuanTracId, Integer thangLayMau, Integer namLayMau);
 }

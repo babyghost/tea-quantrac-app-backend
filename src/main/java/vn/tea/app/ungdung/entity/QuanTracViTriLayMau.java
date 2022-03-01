@@ -93,4 +93,12 @@ public class QuanTracViTriLayMau implements Serializable {
 
 	@Column(name = "nguoisua")
 	private String nguoiSua;
+	
+	
+	@Column(name = "thanglaymau", nullable = false)
+	private Integer thangLayMau;
+	
+	@Column(name = "namlaymau", nullable = false)
+	private Integer namLayMau;
+	
 }

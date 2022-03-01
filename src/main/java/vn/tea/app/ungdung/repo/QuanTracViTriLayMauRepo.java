@@ -28,5 +28,7 @@ public interface QuanTracViTriLayMauRepo extends JpaRepository<QuanTracViTriLayM
 	public List<QuanTracViTriLayMau> findByViTriLayMauAndDaXoa(String viTriLayMau, Integer daXoa);
 	
 	public List<QuanTracViTriLayMau> findByPhanTichIdAndDaXoa(Long phanTichId, Integer daXoa);
+	
+	public QuanTracViTriLayMau findFirstByViTriQuanTracIdAndThangLayMauAndNamLayMau(Long viTriQuanTracId, Integer thangLayMau, Integer namLayMau);
 
 }

@@ -55,4 +55,11 @@ public class QuanTracViTriLayMauImpl implements QuanTracViTriLayMauService {
 		return repo.findAll(QuanTracViTriLayMauSpecifications.searcViTriByPhanTich(phanTichId, ten));
 	}
 
+	@Override
+	public QuanTracViTriLayMau findFirstByViTriQuanTracIdAndThangLayMauAndNamLayMau(Long viTriQuanTracId,
+			Integer thangLayMau, Integer namLayMau) {
+		// TODO Auto-generated method stub
+		return repo.findFirstByViTriQuanTracIdAndThangLayMauAndNamLayMau(viTriQuanTracId, thangLayMau, namLayMau);
+	}
+
 }

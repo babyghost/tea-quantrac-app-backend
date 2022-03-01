@@ -16,6 +16,8 @@ public interface QuanTracPhanTichMoiTruongService {
 	
 	public Optional<QuanTracPhanTichMoiTruong> findFirstByDaXoaOrderByIdDesc(Integer daXoa);
 	
+	public Optional<QuanTracPhanTichMoiTruong> findFirstByThangAndNamAndLoaiAndDaXoa(Integer thang, Integer nam, String loai, Integer daXoa);
+	
 	public QuanTracPhanTichMoiTruong save(QuanTracPhanTichMoiTruong viTri);
 
 	public void delete(Long id);

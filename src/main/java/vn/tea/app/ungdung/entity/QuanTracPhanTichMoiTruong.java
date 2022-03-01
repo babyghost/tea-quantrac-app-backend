@@ -55,4 +55,15 @@ public class QuanTracPhanTichMoiTruong implements Serializable {
 	
 	@Column(name = "trangthai")
 	private Integer trangThai;
+	
+	@Column(name = "loai")
+	private String loai;
+	
+	@Column(name = "nam")
+	private Integer nam;
+	
+	@Column(name = "thang")
+	private Integer thang;
+	
+	
 }
